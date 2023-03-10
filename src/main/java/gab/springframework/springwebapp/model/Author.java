@@ -2,6 +2,7 @@ package gab.springframework.springwebapp.model;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,14 @@ public class Author {
         this.books = books;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -55,13 +64,28 @@ public class Author {
         this.books = books;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    public void setId(Long id) {
-        this.id = id;
+        Author author = (Author) o;
+
+        return Objects.equals(id, author.id);
     }
 
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", books=" + books +
+                '}';
     }
 }
